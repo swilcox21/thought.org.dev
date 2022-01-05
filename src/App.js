@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
-import AddThought from "./components/addThought";
-import Folder from "./components/Folder";
+// import Folder from "./components/Folder";
+import Reminders from "./components/Reminders";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfinity } from "@fortawesome/free-solid-svg-icons";
@@ -9,13 +9,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
-    <div className="App">
+    <div className="container-fluid col-md-5 text-center">
       <h1>
         You and me forever <FontAwesomeIcon icon={faInfinity} />
       </h1>
       <br />
-      <AddThought />
-      <Folder />
+      <Reminders />
     </div>
   );
 }

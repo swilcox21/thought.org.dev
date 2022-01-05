@@ -1,1 +1,15 @@
+/* BORDER CONTROL */
+.borderBottomRight {
+  border: none;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+}
+.borderBottom {
+  border: none;
+  border-bottom: 1px solid black;
+}
 
+/* global essentials */
+ul {
+  list-style: none;
+}
