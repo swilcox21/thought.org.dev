@@ -9,6 +9,20 @@
   border-bottom: 1px solid black;
 }
 
+/* TextareaAutoSize  */
+.onfucus:focus {
+  min-height: 130px;
+  resize: vertical;
+  overflow-y: scroll;
+}
+.unfucused {
+  max-height: 32px;
+  min-height: 32px;
+  border: none;
+  resize: none;
+  overflow: hidden;
+}
+
 /* global essentials */
 ul {
   list-style: none;

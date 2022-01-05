@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import "../App.css";
-import TextareaAutosize from "react-textarea-autosize";
-import axios from "../axios";
+import React, { useState, useEffect } from 'react';
+import '../App.css';
+import TextareaAutosize from 'react-textarea-autosize';
+import axios from '../axios';
 
 // some dummy Data to test the state
 
@@ -13,13 +13,11 @@ import axios from "../axios";
 
 // the folder drop down and textarea to add reminders and thoughts with submit button
 function Reminders() {
-  const [reminder, setReminder] = useState("");
+  const [reminder, setReminder] = useState('');
   const [reminderList, setReminderList] = useState([]);
 
-  function getData() {}
-
-  useEffect(() => {
-    axios
+  const getReminders = async () => {
+    await axios
       .get(`/reminders/`, {})
       .then((res) => {
         const data = res.data;
@@ -29,69 +27,114 @@ function Reminders() {
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const postReminder = async () => {
+    await axios
+      .post(`/reminders/`, {
+        message: reminder,
+      })
+      .then(function (res) {
+        console.log(res);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .then(getReminders)
+      .then(resetTextArea);
+  };
+  // const putReminder = async () => {
+  //   await axios
+  //     .put(`/reminders/`, {
+  //       message: reminder,
+  //     })
+  //     .then(function (res) {
+  //       console.log(res);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     })
+  //     .then(getReminders)
+  //     .then(resetTextArea);
+  // };
+
+  function resetTextArea() {
+    setReminder('');
+  }
+
+  const deleteReminder = async (id) => {
+    await axios.delete(`http://127.0.0.1:8000/reminders/${id}/`);
+  };
+
+  useEffect(() => {
+    getReminders();
   }, []);
 
   return (
     <>
       <div className="d-flex justify-content-center mb-3">
-        <input
-          className="borderBottomRight col-3 p-2"
-          placeholder="reminders"
-          value="reminders"
-
-          // ***** NOTE *****
-          // will add later to be able to create new folders beyond just reminders
-
-          // onBlur={() => {
-          //   folder === "" && setFolder("reminders");
-          //   folder === "" && setNewFolder("reminders");
-          //   setFolderValue("");
-          // }}
-          // onChange={(e) => {
-          //   setFolder(e.target.value);
-          //   setFolderValue(e.target.value);
-          //   setNewFolder(e.target.value);
-          // }}
-          // list="folders"
-          // name="folder"
-          // id="folder"
-        />
-
-        {/* ***** NOTE ***** */}
-        {/* will add later to be able to create new folders beyond just reminders */}
-
-        {/* <datalist id="folders">
-          {dummyFolders.map((folder) => (
-            <div key={folder.id}>
-              <option value={folder.label} />
-            </div>
-          ))}
-        </datalist> */}
         <TextareaAutosize
-          className="activeTodo onfucus borderBottom p-2"
+          className=" borderBottom p-2"
           placeholder="Type your thoughts"
           type="text"
           value={reminder}
           onChange={(e) => setReminder(e.target.value)}
         />
       </div>
-      <button
-        type="submit"
-        // onClick={}
-      >
+      <button type="submit" onClick={postReminder}>
         SUBMIT
       </button>
-      <ul className="container mt-3">
+      <div className="container mt-3">
         {reminderList &&
           reminderList.map((r) => (
-            <li key={r.id} className="d-flex justify-content-between">
-              <div>{r.message}</div>
-              <button>x</button>
-            </li>
+            <div key={r.id} className="d-flex justify-content-between">
+              <TextareaAutosize type="text" className="col-11 onfucus unfucused">
+                {r.message}
+              </TextareaAutosize>
+              <button
+                onClick={() => {
+                  deleteReminder(r.id).then(getReminders);
+                }}
+              >
+                x
+              </button>
+            </div>
           ))}
-      </ul>
+      </div>
     </>
   );
 }
 
 export default Reminders;
+
+// ***** NOTE *****
+// will add later to be able to create new folders beyond just reminders
+
+// input with datalist dropdown for folder selection
+// <input
+//  className="borderBottomRight col-3 p-2"
+//  placeholder="reminders"
+//  value="reminders"
+//  onBlur={() => {
+//    folder === "" && setFolder("reminders");
+//    folder === "" && setNewFolder("reminders");
+//    setFolderValue("");
+//  }}
+//  onChange={(e) => {
+//    setFolder(e.target.value);
+//    setFolderValue(e.target.value);
+//    setNewFolder(e.target.value);
+//  }}
+//  list="folders"
+//  name="folder"
+//  id="folder"
+// />
+
+// datalist for the above input
+/* <datalist id="folders">
+{dummyFolders.map((folder) => (
+  <div key={folder.id}>
+    <option value={folder.label} />
+  </div>
+))}
+</datalist> */
