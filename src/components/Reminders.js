@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import '../App.css';
-import TextareaAutosize from 'react-textarea-autosize';
-import axios from '../axios';
+import React, { useState, useEffect } from "react";
+import "../App.css";
+import TextareaAutosize from "react-textarea-autosize";
+import axios from "../axios";
 
 // some dummy Data to test the state
 
@@ -11,11 +11,16 @@ import axios from '../axios';
 //   ? dummyFolders.filter((folder) => folder.label === newFolder)
 //   : [];
 
-// the folder drop down and textarea to add reminders and thoughts with submit button
 function Reminders() {
-  const [reminder, setReminder] = useState('');
+  const [reminder, setReminder] = useState("");
   const [reminderList, setReminderList] = useState([]);
+  const [editReminder, setEditReminder] = useState("");
 
+  useEffect(() => {
+    getReminders();
+  }, []);
+
+  // axios get, post, put, delete functions
   const getReminders = async () => {
     await axios
       .get(`/reminders/`, {})
@@ -28,7 +33,6 @@ function Reminders() {
         console.log(error);
       });
   };
-
   const postReminder = async () => {
     await axios
       .post(`/reminders/`, {
@@ -43,39 +47,33 @@ function Reminders() {
       .then(getReminders)
       .then(resetTextArea);
   };
-  // const putReminder = async () => {
-  //   await axios
-  //     .put(`/reminders/`, {
-  //       message: reminder,
-  //     })
-  //     .then(function (res) {
-  //       console.log(res);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     })
-  //     .then(getReminders)
-  //     .then(resetTextArea);
-  // };
-
-  function resetTextArea() {
-    setReminder('');
-  }
-
+  const putReminder = async (changes, id) => {
+    await axios
+      .put(`/reminders/${id}`, changes)
+      .then(function (res) {
+        console.log(res);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .then(getReminders)
+      .then(resetTextArea);
+  };
   const deleteReminder = async (id) => {
     await axios.delete(`http://127.0.0.1:8000/reminders/${id}/`);
   };
 
-  useEffect(() => {
-    getReminders();
-  }, []);
+  function resetTextArea() {
+    setReminder("");
+  }
 
+  // the textarea to add reminders with submit button
   return (
     <>
       <div className="d-flex justify-content-center mb-3">
         <TextareaAutosize
           className=" borderBottom p-2"
-          placeholder="Type your thoughts"
+          placeholder="Type reminder here"
           type="text"
           value={reminder}
           onChange={(e) => setReminder(e.target.value)}
@@ -88,7 +86,18 @@ function Reminders() {
         {reminderList &&
           reminderList.map((r) => (
             <div key={r.id} className="d-flex justify-content-between">
-              <TextareaAutosize type="text" className="col-11 onfucus unfucused">
+              <TextareaAutosize
+                onChange={(e) => setEditReminder(e.target.value)}
+                onBlur={() => {
+                  let changes = {
+                    date_time: r.date_time,
+                    message: editReminder,
+                  };
+                  putReminder(changes, r.id);
+                }}
+                type="text"
+                className="col-11 onfucus unfucused"
+              >
                 {r.message}
               </TextareaAutosize>
               <button

@@ -11,7 +11,7 @@ function App() {
   return (
     <div className="container-fluid col-md-5 text-center">
       <h1>
-        You and me forever <FontAwesomeIcon icon={faInfinity} />
+        Me and you forever <FontAwesomeIcon icon={faInfinity} />
       </h1>
       <br />
       <Reminders />
