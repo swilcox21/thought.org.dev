@@ -7,7 +7,7 @@ class ThoughtInline(admin.TabularInline):
 
 class FolderAdmin(admin.ModelAdmin):
     model = Folder
-    list_display = ['name','id','user']
-    ordering = ['name']
+    list_display = ['name','id']
+    ordering = ['id']
     inlines = [ThoughtInline]
 admin.site.register(Folder, FolderAdmin)
