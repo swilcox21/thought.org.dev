@@ -42,3 +42,8 @@ class GetAllFoldersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Folder
         fields = '__all__'
+
+class GetAllThoughtsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Thought
+        fields = '__all__'

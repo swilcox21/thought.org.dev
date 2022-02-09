@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from .models import Thought, Folder
-from .serializers import UserSerializer,ThoughtSerializer,FolderSerializer,GetAllFoldersSerializer
+from .serializers import UserSerializer,ThoughtSerializer,FolderSerializer,GetAllFoldersSerializer,GetAllThoughtsSerializer
 from rest_framework import viewsets, permissions
 from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView
@@ -48,7 +48,7 @@ class ThoughtView(APIView):
             serialized_thought = ThoughtSerializer(thought)
             return Response(serialized_thought.data)
         all_thoughts = Thought.objects.all().order_by('-id')
-        ser_all_thoughts = ThoughtSerializer(all_thoughts, many=True)
+        ser_all_thoughts = GetAllThoughtsSerializer(all_thoughts, many=True)
         return Response(ser_all_thoughts.data)
     def post(self,request):
         serialized_thought = ThoughtSerializer(data=request.data)
