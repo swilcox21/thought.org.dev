@@ -10,7 +10,7 @@ class Folder(models.Model):
 
 class Thought(models.Model):
     folder = models.ForeignKey(Folder, on_delete=models.CASCADE, related_name='thought')
-    thought = models.CharField(max_length=5000, default='')
+    thought = models.CharField(max_length=5000)
     dashboard = models.BooleanField(default=False)
 
     def __str__(self):
