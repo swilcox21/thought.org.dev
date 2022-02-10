@@ -25,14 +25,13 @@ class FolderSerializer(serializers.ModelSerializer):
         model = Folder
         fields = ['id','name','dashboard','thought']
     def create(self, validated_data):
+        return_data = validated_data.copy()
         thought_data = validated_data.pop('thought')
         exists = Folder.objects.filter(name = validated_data['name']).first()
         if exists is not None:
-            print('exists:', validated_data)
             for thought in thought_data:
                 Thought.objects.create(folder=exists, **thought)
-            return validated_data
-        print('else HIII')
+            return return_data
         folder = super(FolderSerializer, self).create(validated_data)
         for thought in thought_data:
             Thought.objects.create(folder=folder, **thought)
