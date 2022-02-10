@@ -11,12 +11,12 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+# HI ALE!!!
 import django_heroku
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -25,6 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-09wc4tyomfj0uitqf66slxw%7&0lhhd+8%pz*v5l03_diod!&$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# HI ALE!!!
 DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'thought-org.herokuapp.com']
@@ -33,7 +34,10 @@ ALLOWED_HOSTS = ['127.0.0.1', 'thought-org.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
+
+# HI ALE!!!
     'whitenoise.runserver_nostatic',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,7 +51,9 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+# HI ALE!!!
     'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -89,9 +95,8 @@ DATABASES = {
     }
 }
 
-
+# HI ALE!!!
 WHITENOISE_USE_FINDERS = True
-
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Password validation
@@ -128,9 +133,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
+# HI ALE!!!
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATIC_URL = 'static/'
 
+# HI ALE!!!
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
@@ -153,4 +161,5 @@ CORS_ALLOW_METHODS = [
 ]
 
 
+# HI ALE!!!
 django_heroku.settings(locals())
