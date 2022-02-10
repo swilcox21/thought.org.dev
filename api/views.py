@@ -55,7 +55,7 @@ class ThoughtView(APIView):
         ser_all_thoughts = ThoughtSerializer(all_thoughts, many=True)
         return Response(ser_all_thoughts.data)
     def post(self,request):
-        serialized_thought = ThoughtSerializer(data=request.data)
+        serialized_thought = GetAllThoughtsSerializer(data=request.data)
         if serialized_thought.is_valid():
             serialized_thought.save()
             return Response(serialized_thought.data)

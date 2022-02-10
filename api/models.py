@@ -4,6 +4,7 @@ from django.conf import settings
 class Folder(models.Model):
     name = models.CharField(max_length=50)
     dashboard = models.BooleanField(default=True)
+    toggle = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name

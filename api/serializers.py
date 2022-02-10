@@ -23,7 +23,7 @@ class FolderSerializer(serializers.ModelSerializer):
     thought = ThoughtSerializer(many=True, required=False)
     class Meta:
         model = Folder
-        fields = ['id','name','dashboard','thought']
+        fields = ['id','name','dashboard','toggle','thought']
     def create(self, validated_data):
         return_data = validated_data.copy()
         thought_data = validated_data.pop('thought')
