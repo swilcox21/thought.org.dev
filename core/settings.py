@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-09wc4tyomfj0uitqf66slxw%7&0lhhd+8%pz*v5l03_diod!&$
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # HI ALE!!!
-DEBUG = False
+DEBUG = os.environ.get('DEBUG', False)
 
 ALLOWED_HOSTS = ['127.0.0.1', 'thought-org.herokuapp.com']
 
