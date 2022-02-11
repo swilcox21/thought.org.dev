@@ -25,7 +25,7 @@ class FolderView(APIView):
             folder = get_object_or_404(Folder.objects.all(), id = folder_id)
             serialized_folder = FolderSerializer(folder)
             return Response(serialized_folder.data)
-        all_folders = Folder.objects.all().order_by('-id')
+        all_folders = Folder.objects.all().order_by('name')
         ser_all_folders = FolderSerializer(all_folders, many=True)
         return Response(ser_all_folders.data)
     def post(self,request):
