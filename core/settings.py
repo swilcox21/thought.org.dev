@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-09wc4tyomfj0uitqf66slxw%7&0lhhd+8%pz*v5l03_diod!&$
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # HI ALE!!!
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ['127.0.0.1', 'thought-org.herokuapp.com']
 
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api.apps.ApiConfig',
     'rest_framework',
+    'rest_framework.authtoken',
     "corsheaders",
 ]
 

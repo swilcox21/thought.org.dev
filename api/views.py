@@ -15,9 +15,24 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+# make sure it requires permission from isAuthenticated and figure out how to send the auth token
+
+    # DONE
+# create custom UserView that takes in a username as a param instead of the ID
+    # DONE
+    
+
 class FolderViewSet(viewsets.ModelViewSet):
     queryset = Folder.objects.all().order_by('name')
     serializer_class = AnotherFolderSerializer
+
+class UserView(APIView):
+    # permission_classes = [permissions.IsAuthenticated]
+    def get(self, request, username):
+        user = get_object_or_404(User.objects.all(), username = username)
+        serialized_user = UserSerializer(user)
+        return Response(serialized_user.data)
+
 
 class FolderView(APIView):
     def get(self, request, folder_id=None):
